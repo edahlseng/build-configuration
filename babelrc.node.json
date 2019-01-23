@@ -1,0 +1,39 @@
+{
+	"presets": ["@babel/preset-flow"],
+	"plugins": [
+		[
+			"babel-plugin-inline-react-svg",
+			{
+				"svgo": {
+					"plugins": [
+						{
+							"removeAttrs": {
+								"attrs": ["data-name", "fill", "stroke"]
+							}
+						},
+						{
+							"removeComments": true
+						},
+						{
+							"removeScriptElement": true
+						},
+						{
+							"removeStyleElement": true
+						},
+						{
+							"removeTitle": true
+						},
+						{
+							"removeUselessDefs": true
+						}
+					]
+				}
+			}
+		],
+		"@babel/plugin-transform-modules-commonjs",
+		"@babel/plugin-transform-react-jsx",
+		"@babel/plugin-proposal-object-rest-spread",
+		"@babel/plugin-proposal-class-properties",
+		"babel-plugin-styled-components"
+	]
+}

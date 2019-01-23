@@ -1,0 +1,54 @@
+version: 2.1
+
+orbs:
+  general: edahlseng/general@1.10.0
+
+git-credentials: &git-credentials
+  git-ssh-fingerprint: 17:95:81:08:88:7a:43:15:fc:96:f0:2b:0d:f0:b1:c1
+  git-user-email: edahlseng@users.noreply.github.com
+  git-user-name: "Release Bot"
+
+workflows:
+  main:
+    jobs:
+      - general/install-dependencies-npm
+      - general/lint-commit:
+          requires:
+            - general/install-dependencies-npm
+      - general/lint-js:
+          requires:
+            - general/install-dependencies-npm
+      - general/lint-json:
+          requires:
+            - general/install-dependencies-npm
+      - general/lint-yaml:
+          requires:
+            - general/install-dependencies-npm
+      - general/validate-js:
+          requires:
+            - general/install-dependencies-npm
+      - general/create-release-pr:
+          context: Release Bot
+          <<: *git-credentials
+          github-access-token: $RELEASE_BOT_GITHUB_TOKEN
+          requires:
+            - general/lint-commit
+            - general/lint-js
+            - general/lint-json
+            - general/lint-yaml
+            - general/validate-js
+          filters:
+            branches:
+              only: master
+      - general/tag-and-publish-npm:
+          context: NPM Publish - @eric.dahlseng
+          <<: *git-credentials
+          requires:
+            - general/lint-commit
+            - general/lint-js
+            - general/lint-json
+            - general/lint-yaml
+            - general/validate-js
+          filters:
+            branches:
+              only: master

@@ -1,0 +1,4 @@
+*
+!dist/*
+!babelrc.browser.json
+!babelrc.node.json
