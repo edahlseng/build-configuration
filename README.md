@@ -22,7 +22,7 @@ Available build-types:
 
 ### Example
 
-Running `npx linter-configuration setup js-module` will add a `babel` key to a project's `package.json` file as well as the `build` script, configuring Babel to transpile the module's source into a `dist/` folder.
+Running `npx configuration-build setup js-module` will add a `babel` key to a project's `package.json` file as well as the `build` script, configuring Babel to transpile the module's source into a `dist/` folder.
 
 API
 ---
