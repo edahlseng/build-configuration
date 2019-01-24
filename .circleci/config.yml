@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  general: edahlseng/general@1.10.0
+  general: edahlseng/general@1.12.0
 
 git-credentials: &git-credentials
   git-ssh-fingerprint: 17:95:81:08:88:7a:43:15:fc:96:f0:2b:0d:f0:b1:c1
@@ -49,6 +49,14 @@ workflows:
             - general/lint-json
             - general/lint-yaml
             - general/validate-js
+          filters:
+            branches:
+              only: master
+      - general/create-github-release:
+          context: Release Bot
+          github-access-token: $RELEASE_BOT_GITHUB_TOKEN
+          requires:
+            - general/tag-and-publish-npm
           filters:
             branches:
               only: master
